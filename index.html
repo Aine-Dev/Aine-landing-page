@@ -163,8 +163,33 @@
                © 2026 Aine • Prosperidade Orgânica
             </div>
         </div>
-    </footer>
-</body>
-</html>
-</body>
-</html>
+    </footer> <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+    const supabaseUrl = 'https://lwnmybkalvvhtasnuliu.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx3bm15YmthbHZ2aHRhc251bGl1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5NDgyODAsImV4cCI6MjA4OTUyNDI4MH0.AFup8pWvcaRb2bIzB0iKZszBiK0ldObob8nkEX98Xww';
+    const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+    const form = document.getElementById('waitlist-form');
+    const message = document.getElementById('form-message');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email-input').value;
+
+        const { data, error } = await _supabase
+            .from('waitlist')
+            .insert([{ email: email }]);
+
+        if (error) {
+            console.error('Erro ao salvar:', error);
+            alert('Ops! Algo deu errado. Verifique se o e-mail já está cadastrado.');
+        } else {
+            form.reset();
+            message.classList.remove('hidden');
+            setTimeout(() => { message.classList.add('hidden'); }, 5000);
+        }
+    });
+</script>
+
+</body> </html>
+
